@@ -18,13 +18,25 @@ public class NicoPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveTruck();
+       
+    }
+
+
+    //Move Player
+    void MoveTruck()
+    {
 
         forwardInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.forward * Time.deltaTime * forwardInput * speed);
-
-
         bool shouldInvertRotation = Mathf.Abs(forwardInput) > 0 && forwardInput < 0;
-        transform.Rotate(Vector3.up, Time.deltaTime * horizontalInput * turnSpeed * (shouldInvertRotation ? -1 : 1));
+
+        if (forwardInput > 0 || forwardInput < 0)
+        {
+            transform.Rotate(Vector3.up, Time.deltaTime * horizontalInput * turnSpeed * (shouldInvertRotation ? -1 : 1));
+        }
+
     }
+
 }
