@@ -5,16 +5,17 @@ using UnityEngine;
 public class AleCamaraController : MonoBehaviour
 {
     enum POV { Player_POV };
-    public Vector3 perspectiveDirection;
-    public float perspectiveDistance;
+    public Vector3 perspectiveDirection = new Vector3(12, 20, 0);
+    public float perspectiveDistance = 20f;
+
+    Vector3 currentVelocity;
     public GameObject player;
 
-    Camera mainCamera;
+    public Camera mainCamera;
     POV currentPOV = POV.Player_POV;
 
     void Start()
     {
-        mainCamera = GetComponentInChildren<Camera>();
     }
 
     void Update()
@@ -42,6 +43,7 @@ public class AleCamaraController : MonoBehaviour
     void FollowPlayer()
     {
         transform.position = player.transform.position;
-        mainCamera.transform.LookAt(transform.position);
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, transform.position + GetPespectiveVector(), ref currentVelocity, 20 * Time.deltaTime);
+        mainCamera.transform.LookAt(mainCamera.transform.position - perspectiveDirection.normalized);
     }
 }
