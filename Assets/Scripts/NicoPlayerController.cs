@@ -12,7 +12,7 @@ public class NicoPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,8 +22,9 @@ public class NicoPlayerController : MonoBehaviour
         forwardInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.forward * Time.deltaTime * forwardInput * speed);
-        transform.Rotate(Vector3.up, Time.deltaTime * horizontalInput * turnSpeed);
-        
 
+
+        bool shouldInvertRotation = Mathf.Abs(forwardInput) > 0 && forwardInput < 0;
+        transform.Rotate(Vector3.up, Time.deltaTime * horizontalInput * turnSpeed * (shouldInvertRotation ? -1 : 1));
     }
 }
