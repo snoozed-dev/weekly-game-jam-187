@@ -8,7 +8,6 @@ public class AleCamaraController : MonoBehaviour
     public Vector3 perspectiveDirection = new Vector3(12, 20, 0);
     public float perspectiveDistance = 20f;
 
-    Vector3 currentVelocity;
     public GameObject player;
 
     public Camera mainCamera;
@@ -43,7 +42,7 @@ public class AleCamaraController : MonoBehaviour
     void FollowPlayer()
     {
         transform.position = player.transform.position;
-        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, transform.position + GetPespectiveVector(), ref currentVelocity, 20 * Time.deltaTime);
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, transform.position + GetPespectiveVector(), 5 * Time.deltaTime);
         mainCamera.transform.LookAt(mainCamera.transform.position - perspectiveDirection.normalized);
     }
 }
