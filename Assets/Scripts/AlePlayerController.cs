@@ -53,9 +53,9 @@ public class AlePlayerController : MonoBehaviour
 
         if (Mathf.Abs(currentSpeed) > 0)
         {
-            transform.Rotate(transform.up, currentTurn * turnSpeed * turnMultiplier * ((currentSpeed < 0) ? -1 : 1) * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.up, currentTurn * turnSpeed * turnMultiplier * ((currentSpeed < 0) ? -1 : 1) * Time.fixedDeltaTime);
         }
-        rb.MovePosition(rb.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + Vector3.ProjectOnPlane(transform.forward, Vector3.up) * currentSpeed * Time.fixedDeltaTime);
     }
 
     void CheckForGround()
