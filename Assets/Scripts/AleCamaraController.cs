@@ -17,7 +17,7 @@ public class AleCamaraController : MonoBehaviour
     {
     }
 
-    void Update()
+    void FixedUpdate()
     {
         FollowPOV();
     }
@@ -42,7 +42,7 @@ public class AleCamaraController : MonoBehaviour
     void FollowPlayer()
     {
         transform.position = player.transform.position;
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, transform.position + GetPespectiveVector(), 5 * Time.deltaTime);
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, transform.position + GetPespectiveVector(), 5 * Time.fixedDeltaTime);
         mainCamera.transform.LookAt(mainCamera.transform.position - perspectiveDirection.normalized);
     }
 }
